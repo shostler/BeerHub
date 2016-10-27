@@ -29,21 +29,8 @@ public class PersonalDashboardActivity extends AppCompatActivity {
             .equalTo(BeerDrinkerFields.PIN, pin)
             .findFirst();
 
-        setTitle(drinker.getNickName());
-
-        realm.beginTransaction();
-        drinker.setBeersAdded(373);
-        realm.commitTransaction();
-
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                drinker.setBeersAdded(373);
-            }
-        });
-
         TextView beerTotalText = (TextView)findViewById(R.id.textBeerTot);
-        beerTotalText.setText(String.valueOf(drinker.getBeersAdded()));
+        beerTotalText.setText(String.valueOf(drinker.getNetBeers()));
     }
 
     public void clickAddCase(View view) {
@@ -63,6 +50,8 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         realm.beginTransaction();
         drinker.setBeersRemoved(drinker.getBeersRemoved() + 1);
         realm.commitTransaction();
+
+        showInteractionSummary();
     }
 
     public void addBeers(int numAdded){
@@ -71,13 +60,13 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         drinker.setBeersAdded(drinker.getBeersAdded() + numAdded);
         realm.commitTransaction();
 
-        TextView beerTotalText = (TextView)findViewById(R.id.textBeerTot);
-        beerTotalText.setText(String.valueOf(drinker.getBeersAdded()));
-
         showInteractionSummary();
     }
 
     public void showInteractionSummary(){
+        TextView beerTotalText = (TextView)findViewById(R.id.textBeerTot);
+        beerTotalText.setText(String.valueOf(drinker.getNetBeers()));
+
         //TODO new NetBeers
         //TODO earned badges?
         //TODO drop back to mainActitivy

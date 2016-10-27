@@ -10,26 +10,34 @@ public class PersonalDashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_dashboard);
+        //TODO show current totals on startup?
     }
 
     public void clickAddCase(View view) {
-        //TODO
+        addBeers(12);
     }
 
     public void clickAddSixPack(View view) {
-        //TODO
+        addBeers(6);
     }
 
     public void clickAddBeer(View view) {
-        //TODO
+        addBeers(1);
     }
 
     public void clickTakeBeer(View view) {
-        //TODO
+        addBeers(-1);
     }
-    
-    //TODO show current totals
-    //TODO show updated totals
-    //TODO drop back to mainActitivy
+
+    public void addBeers(int numAdded){
+        //TODO get the current user and update the beers
+        showInteractionSummary();
+    }
+
+    public void showInteractionSummary(){
+        //TODO new NetBeers
+        //TODO earned badges?
+        //TODO drop back to mainActitivy
+    }
 
 }

@@ -1,10 +1,12 @@
 package com.infusionsoft.beerhub.model;
 
+import io.realm.RealmObject;
+
 /**
  * Created by stuart-hostler on 10/27/16.
  */
 
-public class BeerDrinker {
+public class BeerDrinker extends RealmObject {
 
     //The net number of beers (added minus removed)
     private int netBeers;
@@ -16,6 +18,21 @@ public class BeerDrinker {
     private String pin;
 
     private String nickName;
+
+    public BeerDrinker() {
+    }
+
+    public BeerDrinker(int beersAdded, int beersRemoved) {
+        this.beersAdded = beersAdded;
+        this.beersRemoved = beersRemoved;
+    }
+
+    public static BeerDrinker create(String nickName, String pin, int beersAdded, int beersRemoved) {
+        BeerDrinker drinker = new BeerDrinker(beersAdded, beersRemoved);
+        drinker.setNickName(nickName);
+        drinker.setPin(pin);
+        return drinker;
+    }
 
     public String getPin() {
         return pin;
@@ -31,14 +48,6 @@ public class BeerDrinker {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
-    }
-
-    public BeerDrinker() {
-    }
-
-    public BeerDrinker(int beersAdded, int beersRemoved) {
-        this.beersAdded = beersAdded;
-        this.beersRemoved = beersRemoved;
     }
 
     public int getNetBeers() {

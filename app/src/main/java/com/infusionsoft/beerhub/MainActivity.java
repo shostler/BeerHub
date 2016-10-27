@@ -14,8 +14,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void clickMe(View view) {
-        Intent intent = new Intent(this, Main2Activity.class);
+    public void clickSignIn(View view) {
+
+        //TODO verify the pin
+        //TODO pullup the user of that pin
+        //TODO pass user info to next page
+        //TODO global for logged in user that gets wipped out when signing out
+        Intent intent = new Intent(this, PersonalDashboardActivity.class);
         startActivity(intent);
     }
 }

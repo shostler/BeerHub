@@ -35,9 +35,9 @@ public class Dashboard extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0:
-                    return new SigninFragment();
                 case 1:
+                    return new SigninFragment();
+                case 0:
                     return new LeaderBoardsFragment();
             }
             return null;
@@ -51,9 +51,9 @@ public class Dashboard extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0:
-                    return getString(R.string.sign_in_label);
                 case 1:
+                    return getString(R.string.sign_in_label);
+                case 0:
                     return getString(R.string.leaderboards_label);
             }
             return null;

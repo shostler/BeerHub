@@ -1,6 +1,7 @@
 package com.infusionsoft.beerhub;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -66,7 +67,15 @@ public class PersonalDashboardActivity extends AppCompatActivity {
     public void showInteractionSummary(){
         updateDrinkerSummary();
         //TODO earned badges?
-        //TODO drop back to mainActitivy
+
+        //Exit back to main menu after 5 seconds
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 5000);
     }
 
     private void updateDrinkerSummary(){

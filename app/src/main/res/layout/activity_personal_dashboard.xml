@@ -54,4 +54,13 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="30dp"
         android:onClick="clickTakeBeer" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/addBeerButt"
+        android:layout_marginTop="87dp"
+        android:id="@+id/textBeerTot" />
 </RelativeLayout>

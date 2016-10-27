@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import com.infusionsoft.beerhub.model.BeerDrinker;
 import com.infusionsoft.beerhub.model.BeerDrinkerFields;
+import android.widget.TextView;
 import io.realm.Realm;
 
 public class PersonalDashboardActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_dashboard);
+
         //TODO show current totals on startup?
 
         String pin = getIntent().getStringExtra(PIN_KEY);
@@ -37,6 +39,9 @@ public class PersonalDashboardActivity extends AppCompatActivity {
                 drinker.setBeersAdded(373);
             }
         });
+
+        TextView beerTotalText = (TextView)findViewById(R.id.textBeerTot);
+        beerTotalText.setText(String.valueOf(drinker.getBeersAdded()));
     }
 
     public void clickAddCase(View view) {
@@ -52,11 +57,21 @@ public class PersonalDashboardActivity extends AppCompatActivity {
     }
 
     public void clickTakeBeer(View view) {
-        addBeers(-1);
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        drinker.setBeersRemoved(drinker.getBeersRemoved() + 1);
+        realm.commitTransaction();
     }
 
     public void addBeers(int numAdded){
-        //TODO get the current user and update the beers
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        drinker.setBeersAdded(drinker.getBeersAdded() + numAdded);
+        realm.commitTransaction();
+
+        TextView beerTotalText = (TextView)findViewById(R.id.textBeerTot);
+        beerTotalText.setText(String.valueOf(drinker.getBeersAdded()));
+
         showInteractionSummary();
     }
 

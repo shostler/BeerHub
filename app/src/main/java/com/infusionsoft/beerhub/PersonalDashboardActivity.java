@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import com.infusionsoft.beerhub.model.BeerDrinker;
 import com.infusionsoft.beerhub.model.BeerDrinkerFields;
-import android.widget.TextView;
 import io.realm.Realm;
 
 public class PersonalDashboardActivity extends AppCompatActivity {
@@ -28,6 +28,8 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         drinker = realm.where(BeerDrinker.class)
             .equalTo(BeerDrinkerFields.PIN, pin)
             .findFirst();
+
+        setTitle(drinker.getNickName());
 
         realm.beginTransaction();
         drinker.setBeersAdded(373);

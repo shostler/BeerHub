@@ -1,6 +1,7 @@
 package com.infusionsoft.beerhub.model;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by stuart-hostler on 10/27/16.
@@ -15,6 +16,7 @@ public class BeerDrinker extends RealmObject {
 
     private int beersRemoved;
 
+    @PrimaryKey
     private String pin;
 
     private String nickName;

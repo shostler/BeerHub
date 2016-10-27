@@ -39,9 +39,7 @@ public class SigninFragment extends Fragment {
 
             @Override
             public void onComplete(String pin) {
-                if (pin.equals(last)) {
-                    return;
-                }
+
                 last = pin;
                 Log.d("PinLockListener", "onComplete() called with: pin = [" + pin + "]");
                 Realm realm = Realm.getDefaultInstance();

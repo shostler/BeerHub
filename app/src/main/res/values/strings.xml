@@ -6,4 +6,8 @@
 
     <string name="sign_in_label">Sign In</string>
     <string name="leaderboards_label">Leaderboards</string>
+    <string name="add_a_six_pack">Add A Six-pack</string>
+    <string name="add_a_case_12">Add a Case(12)</string>
+    <string name="add_a_beer">Add A Beer</string>
+    <string name="take_a_beer">Take A Beer</string>
 </resources>

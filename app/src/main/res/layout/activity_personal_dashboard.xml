@@ -14,7 +14,7 @@
     <!-- TODO switch these buttons to pictures -->
 
     <Button
-        android:text="Add a Case(12)"
+        android:text="@string/add_a_case_12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addCaseButt"
@@ -24,7 +24,7 @@
         android:onClick="clickAddCase" />
 
     <Button
-        android:text="Add A Six-pack"
+        android:text="@string/add_a_six_pack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addSixButt"
@@ -34,7 +34,7 @@
         android:onClick="clickAddSixPack" />
 
     <Button
-        android:text="Add A Beer"
+        android:text="@string/add_a_beer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -44,7 +44,7 @@
         android:onClick="clickAddBeer" />
 
     <Button
-        android:text="Take A Beer"
+        android:text="@string/take_a_beer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/takeBeerButt"

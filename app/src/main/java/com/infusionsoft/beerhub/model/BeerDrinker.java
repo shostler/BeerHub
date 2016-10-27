@@ -54,8 +54,12 @@ public class BeerDrinker extends RealmObject {
         return netBeers;
     }
 
-    public void setNetBeers(int netBeers) {
+    private void setNetBeers(int netBeers) {
         this.netBeers = netBeers;
+    }
+
+    void updateNetBeers() {
+         setNetBeers(this.beersAdded - this.beersRemoved);
     }
 
     public int getBeersAdded() {
@@ -64,6 +68,7 @@ public class BeerDrinker extends RealmObject {
 
     public void setBeersAdded(int beersAdded) {
         this.beersAdded = beersAdded;
+        updateNetBeers();
     }
 
     public int getBeersRemoved() {
@@ -72,5 +77,6 @@ public class BeerDrinker extends RealmObject {
 
     public void setBeersRemoved(int beersRemoved) {
         this.beersRemoved = beersRemoved;
+        updateNetBeers();
     }
 }

@@ -59,8 +59,50 @@
         android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/addBeerButt"
-        android:layout_marginTop="87dp"
-        android:id="@+id/textBeerTot" />
+        android:id="@+id/textBeerNet"
+        android:layout_above="@+id/addBeerButt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="88dp" />
+
+    <TextView
+        android:text="Beers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textBeerNet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textNetBeersLabel" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textNetBeersLabel"
+        android:layout_alignStart="@+id/addBeerButt"
+        android:layout_marginBottom="40dp"
+        android:id="@+id/textBeersAdded" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textBeersAdded"
+        android:layout_toEndOf="@+id/addSixButt"
+        android:id="@+id/textBeersDrank" />
+
+    <TextView
+        android:text="Beers Drank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textBeersAddedLabel"
+        android:layout_alignEnd="@+id/textBeersDrank"
+        android:id="@+id/textBeersDrankLabel" />
+
+    <TextView
+        android:text="Beers Added"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textBeersAddedLabel"
+        android:layout_below="@+id/textBeersDrank"
+        android:layout_alignStart="@+id/textBeersAdded" />
 </RelativeLayout>

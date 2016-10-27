@@ -12,15 +12,15 @@ import io.realm.Realm;
 public class PersonalDashboardActivity extends AppCompatActivity {
 
     public static final String PIN_KEY = "key.pin";
+    private static final String NEGATIVE_NET_BEERS  = "Beers in the hole!";
+    private static final String POSITIVE_NET_BEERS  = "Beers still to drink!";
 
-    BeerDrinker drinker;
+    private BeerDrinker drinker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_dashboard);
-
-        //TODO show current totals on startup?
 
         String pin = getIntent().getStringExtra(PIN_KEY);
         Log.d("PersonalDashboard", pin);
@@ -29,8 +29,8 @@ public class PersonalDashboardActivity extends AppCompatActivity {
             .equalTo(BeerDrinkerFields.PIN, pin)
             .findFirst();
 
-        TextView beerTotalText = (TextView)findViewById(R.id.textBeerTot);
-        beerTotalText.setText(String.valueOf(drinker.getNetBeers()));
+        updateDrinkerSummary();
+
     }
 
     public void clickAddCase(View view) {
@@ -64,12 +64,23 @@ public class PersonalDashboardActivity extends AppCompatActivity {
     }
 
     public void showInteractionSummary(){
-        TextView beerTotalText = (TextView)findViewById(R.id.textBeerTot);
-        beerTotalText.setText(String.valueOf(drinker.getNetBeers()));
-
-        //TODO new NetBeers
+        updateDrinkerSummary();
         //TODO earned badges?
         //TODO drop back to mainActitivy
+    }
+
+    private void updateDrinkerSummary(){
+        TextView beerTotalText = (TextView)findViewById(R.id.textBeerNet);
+        beerTotalText.setText(String.valueOf(drinker.getNetBeers()));
+
+        TextView beerTotalLabel = (TextView)findViewById(R.id.textNetBeersLabel);
+        beerTotalLabel.setText( (drinker.getNetBeers() < 0) ? NEGATIVE_NET_BEERS : POSITIVE_NET_BEERS );
+
+        TextView beersAddedText = (TextView)findViewById(R.id.textBeersAdded);
+        beersAddedText.setText(String.valueOf(drinker.getBeersAdded()));
+
+        TextView beersDrankText = (TextView)findViewById(R.id.textBeersDrank);
+        beersDrankText.setText(String.valueOf(drinker.getBeersRemoved()));
     }
 
 }

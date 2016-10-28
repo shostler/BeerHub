@@ -40,6 +40,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
     private MediaPlayer mTakeOneBeer;
     private MediaPlayer mNetNegativeSixBeers;
     private MediaPlayer mAchievementAchieved;
+    private MediaPlayer mNoAchievementsHorn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         this.mTakeOneBeer = MediaPlayer.create(this, R.raw.beer_bottle_opening);
         this.mNetNegativeSixBeers = MediaPlayer.create(this, R.raw.boo);
         this.mAchievementAchieved = MediaPlayer.create(this, R.raw.achievement_achieved);
+        this.mNoAchievementsHorn = MediaPlayer.create(this, R.raw.price_is_right_you_lose);
 
         String pin = getIntent().getStringExtra(PIN_KEY);
         Log.d("PersonalDashboard", pin);
@@ -89,6 +91,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         mTakeOneBeer.stop();
         mNetNegativeSixBeers.stop();
         mAchievementAchieved.stop();
+        mNoAchievementsHorn.stop();
         super.onDestroy();
     }
 
@@ -119,6 +122,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
 
             if (achievementsText.size() == 0) {
                 achievementsText.add("No Achievements :(");
+                mNoAchievementsHorn.start();
             }
             
             ArrayAdapter<String> achievementAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, achievementsText);

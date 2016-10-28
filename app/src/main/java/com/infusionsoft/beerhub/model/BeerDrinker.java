@@ -33,6 +33,7 @@ public class BeerDrinker extends RealmObject {
     public BeerDrinker(int beersAdded, int beersRemoved) {
         this.beersAdded = beersAdded;
         this.beersRemoved = beersRemoved;
+        this.updateNetBeers();
     }
 
     public static BeerDrinker create(String nickName, String pin, int beersAdded, int beersRemoved) {

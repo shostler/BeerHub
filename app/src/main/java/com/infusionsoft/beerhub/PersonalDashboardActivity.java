@@ -120,9 +120,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         for (String achievement : achievements) {
             if (!drinker.getAchievements().contains(achievement)) {
                 croppedAchList.add(achievement);
-                Toast.makeText(getApplicationContext(),
-                    "ACHIEVEMENT EARNED!\n" + Achievement.valueOf(achievement).getName(),
-                    Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), Achievement.valueOf(achievement).getName() + " Achievement Earned!\n" + Achievement.valueOf(achievement).getDescription(), Toast.LENGTH_LONG).show();
                 mAchievementAchieved.start();
             }
         }
@@ -148,9 +146,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         for (String achievement : achievements) {
             if (!drinker.getAchievements().contains(achievement)) {
                 croppedAchList.add(achievement);
-                Toast.makeText(getApplicationContext(),
-                    "ACHIEVEMENT EARNED!\n" + Achievement.valueOf(achievement).getName(),
-                    Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), Achievement.valueOf(achievement).getName() + " Achievement Earned!\n" + Achievement.valueOf(achievement).getDescription(), Toast.LENGTH_LONG).show();
                 mAchievementAchieved.start();
             }
         }

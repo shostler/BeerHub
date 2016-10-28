@@ -1,5 +1,6 @@
 package com.infusionsoft.beerhub;
 
+import android.app.Dialog;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.infusionsoft.beerhub.model.Achievement;
@@ -104,7 +107,27 @@ public class PersonalDashboardActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_view_achievements) {
-            // TODO: MAKE CALL HERE NICK!!!
+
+            Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.achievement_list);
+
+            List<String> achievementsText = new ArrayList<>();
+            for (String achievement : drinker.getAchievements()) {
+                achievementsText.add(Achievement.valueOf(achievement).getName() + " - " + Achievement.valueOf(achievement).getDescription());
+            }
+
+            if (achievementsText.size() == 0) {
+                achievementsText.add("No Achievements :(");
+            }
+            
+            ArrayAdapter<String> achievementAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, achievementsText);
+
+            ListView achievementList = (ListView) dialog.findViewById(R.id.achievementListView);
+            achievementList.setAdapter(achievementAdapter);
+
+            dialog.setCancelable(true);
+            dialog.setTitle("Your Achievements");
+            dialog.show();
             return true;
         }
 

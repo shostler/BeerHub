@@ -37,11 +37,13 @@
         />
 
     <Button
-        android:text="New User"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
         android:onClick="clickNewUser"
+        android:text="New User"
+        android:textColor="@color/colorAccent"
+        style="?android:attr/borderlessButtonStyle"
         />
 
 </LinearLayout>

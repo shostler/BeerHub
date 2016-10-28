@@ -14,95 +14,106 @@
     <!-- TODO switch these buttons to pictures -->
 
     <Button
-        android:text="@string/add_a_case_12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/addCaseButt"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/addSixButt"
         android:layout_marginBottom="42dp"
-        android:onClick="clickAddCase" />
+        android:onClick="clickAddCase"
+        android:text="@string/add_a_case_12"
+        style="@style/BeerButton"
+        />
 
     <Button
-        android:text="@string/add_a_six_pack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/addSixButt"
-        android:layout_marginBottom="44dp"
         android:layout_above="@+id/addCaseButt"
         android:layout_centerHorizontal="true"
-        android:onClick="clickAddSixPack" />
+        android:layout_marginBottom="44dp"
+
+        android:onClick="clickAddSixPack"
+        android:text="@string/add_a_six_pack"
+
+        style="@style/BeerButton"
+        />
 
     <Button
-        android:text="@string/add_a_beer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
         android:id="@+id/addBeerButt"
-        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:onClick="clickAddBeer" />
+        android:layout_centerVertical="true"
+        android:layout_marginStart="48dp"
+
+        android:onClick="clickAddBeer"
+        android:text="@string/add_a_beer"
+
+        style="@style/BeerButton"
+        />
 
     <Button
-        android:text="@string/take_a_beer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/takeBeerButt"
-        android:layout_marginLeft="97dp"
         android:layout_alignBaseline="@+id/addBeerButt"
         android:layout_alignBottom="@+id/addBeerButt"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="30dp"
-        android:onClick="clickTakeBeer" />
+        android:layout_marginLeft="97dp"
+        android:onClick="clickTakeBeer"
+        android:text="@string/take_a_beer"
+        style="@style/BeerButton"
+
+        />
 
     <TextView
-        android:text="0"
+        android:id="@+id/textBeerNet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textBeerNet"
         android:layout_above="@+id/addBeerButt"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="88dp" />
+        android:layout_marginBottom="88dp"
+        android:text="0"
+        />
 
     <TextView
-        android:text="Beers"
+        android:id="@+id/textNetBeersLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textBeerNet"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:id="@+id/textNetBeersLabel" />
+        android:text="Beers"
+        />
 
     <TextView
-        android:text="0"
+        android:id="@+id/textBeersAdded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textNetBeersLabel"
         android:layout_alignStart="@+id/addBeerButt"
         android:layout_marginBottom="40dp"
-        android:id="@+id/textBeersAdded" />
+        android:text="0"
+        />
 
     <TextView
-        android:text="0"
+        android:id="@+id/textBeersDrank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textBeersAdded"
         android:layout_toEndOf="@+id/addSixButt"
-        android:id="@+id/textBeersDrank" />
+        android:text="0"
+        />
 
     <TextView
-        android:text="Beers Drank"
+        android:id="@+id/textBeersDrankLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textBeersAddedLabel"
         android:layout_alignEnd="@+id/textBeersDrank"
-        android:id="@+id/textBeersDrankLabel" />
+        android:text="Beers Drank"
+        />
 
     <TextView
-        android:text="Beers Added"
+        android:id="@+id/textBeersAddedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textBeersAddedLabel"
+        android:layout_alignStart="@+id/textBeersAdded"
         android:layout_below="@+id/textBeersDrank"
-        android:layout_alignStart="@+id/textBeersAdded" />
+        android:text="Beers Added"
+        />
 </RelativeLayout>

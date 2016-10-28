@@ -6,10 +6,15 @@
 
     <string name="sign_in_label">Sign In</string>
     <string name="leaderboards_label">Leaderboards</string>
-    <string name="add_a_six_pack">Add A Six-pack</string>
-    <string name="add_a_case_12">Add a Case(12)</string>
-    <string name="add_a_beer">Add A Beer</string>
-    <string name="take_a_beer">Take A Beer</string>
+    <string name="add_a_six_pack">+6</string>
+    <string name="add_a_case_12">+12</string>
+    <string name="add_a_beer">+1</string>
+    <string name="take_a_beer">-1</string>
     <string name="nickname_label">Nickname</string>
     <string name="select_a_nick_name_and_pin">Select a Nickname and PIN</string>
+
+    <string-array name="leaderboard_filters">
+        <item>Top 10 Philanthropists</item>
+        <item>Top 10 Leeches</item>
+    </string-array>
 </resources>

@@ -13,6 +13,7 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:padding="8dp"
         app:cardCornerRadius="0dp"
         app:cardUseCompatPadding="true"
@@ -27,11 +28,21 @@
             <TextView
                 android:id="@+id/nick_name"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:text="@{viewModel.nickName}"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                tools:text="viewModel.nickName"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nick_name"
+                android:layout_marginTop="4dp"
+                android:text="@{viewModel.nickName}"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
                 tools:text="viewModel.nickName"
                 />
         </RelativeLayout>

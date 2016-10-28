@@ -6,15 +6,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import com.infusionsoft.beerhub.databinding.LeaderboardListItemBinding;
 import com.infusionsoft.beerhub.databinding.LeaderboardsLayoutBinding;
 import com.infusionsoft.beerhub.model.BeerDrinker;
+import com.infusionsoft.beerhub.model.BeerDrinkerFields;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import java.util.List;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -46,10 +48,23 @@ public class LeaderBoardsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                filterBy(i);
+            }
 
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+    }
+
+    private void filterBy(int index) {
+        String field = index == 0 ? BeerDrinkerFields.BEERS_ADDED : BeerDrinkerFields.BEERS_REMOVED;
+        Sort sort = Sort.DESCENDING;
         final Realm realm = Realm.getDefaultInstance();
         realm.where(BeerDrinker.class)
-            .findAll().asObservable()
+            .findAllSorted(field, sort)
             .<List<BeerDrinker>>asObservable()
             .map(new Func1<RealmResults<BeerDrinker>, List<BeerDrinker>>() {
                 @Override
@@ -61,8 +76,6 @@ public class LeaderBoardsFragment extends Fragment {
                 @Override
                 public void call(List<BeerDrinker> beerDrinkers) {
                     drinkers = beerDrinkers;
-                    Log.d(TAG, "drinkers: " + drinkers.size());
-
                     binding.recycler.setAdapter(new BeerDrinkerAdapter());
                 }
             });

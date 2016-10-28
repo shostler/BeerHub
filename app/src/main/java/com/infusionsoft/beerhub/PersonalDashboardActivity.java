@@ -2,18 +2,16 @@ package com.infusionsoft.beerhub;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import com.infusionsoft.beerhub.model.Achievement;
 import com.infusionsoft.beerhub.model.BeerDrinker;
 import com.infusionsoft.beerhub.model.BeerDrinkerFields;
-
-import java.util.List;
-
 import io.realm.Realm;
+import java.util.List;
 
 public class PersonalDashboardActivity extends AppCompatActivity {
 
@@ -23,10 +21,15 @@ public class PersonalDashboardActivity extends AppCompatActivity {
 
     private BeerDrinker drinker;
 
+    private Handler handler;
+    private Runnable stopUpdatingHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_dashboard);
+
+        this.handler = new Handler(Looper.getMainLooper());
 
         String pin = getIntent().getStringExtra(PIN_KEY);
         Log.d("PersonalDashboard", pin);
@@ -35,8 +38,17 @@ public class PersonalDashboardActivity extends AppCompatActivity {
             .equalTo(BeerDrinkerFields.PIN, pin)
             .findFirst();
 
+        setTitle(drinker.getNickName());
+
         updateDrinkerSummary();
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacks(stopUpdatingHandler);
+        stopUpdatingHandler = null;
     }
 
     public void clickAddCase(View view) {
@@ -81,14 +93,14 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         updateDrinkerSummary();
         //TODO earned badges?
 
-        //Exit back to main menu after 5 seconds
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        handler.removeCallbacks(stopUpdatingHandler);
+        stopUpdatingHandler = new Runnable() {
             @Override
             public void run() {
                 finish();
             }
-        }, 5000);
+        };
+        handler.postDelayed(stopUpdatingHandler, 5000);
     }
 
     private void updateDrinkerSummary(){

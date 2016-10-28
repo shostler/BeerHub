@@ -33,6 +33,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
     private MediaPlayer mAddSixBeers;
     private MediaPlayer mTakeOneBeer;
     private MediaPlayer mNetNegativeSixBeers;
+    private MediaPlayer mAchievementAchieved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         this.mAddSixBeers = MediaPlayer.create(this, R.raw.moderate_applause);
         this.mTakeOneBeer = MediaPlayer.create(this, R.raw.beer_bottle_opening);
         this.mNetNegativeSixBeers = MediaPlayer.create(this, R.raw.boo);
+        this.mAchievementAchieved = MediaPlayer.create(this, R.raw.achievement_achieved);
 
         String pin = getIntent().getStringExtra(PIN_KEY);
         Log.d("PersonalDashboard", pin);
@@ -72,6 +74,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         mAddSixBeers.stop();
         mTakeOneBeer.stop();
         mNetNegativeSixBeers.stop();
+        mAchievementAchieved.stop();
         super.onDestroy();
     }
 
@@ -109,6 +112,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
             if (!drinker.getAchievements().contains(achievement)){
                 croppedAchList.add(achievement);
                 Toast.makeText(getApplicationContext(), "ACHIEVEMENT EARNED!\n" +  Achievement.valueOf(achievement).getName(), Toast.LENGTH_LONG).show();
+                mAchievementAchieved.start();
             }
         }
 
@@ -133,6 +137,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
             if (!drinker.getAchievements().contains(achievement)){
                 croppedAchList.add(achievement);
                 Toast.makeText(getApplicationContext(), "ACHIEVEMENT EARNED!\n" +  Achievement.valueOf(achievement).getName(), Toast.LENGTH_LONG).show();
+                mAchievementAchieved.start();
             }
         }
 

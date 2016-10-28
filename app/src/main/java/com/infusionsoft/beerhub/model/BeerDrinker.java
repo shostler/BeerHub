@@ -102,6 +102,8 @@ public class BeerDrinker extends RealmObject {
             sb.append(",").append(s);
         }
 
-        this.achievements = sb.substring(1); // remove leading separator
+        if (sb.length() > 0) {
+            this.achievements = sb.substring(1); // remove leading separator
+        }
     }
 }

@@ -163,7 +163,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         }
 
         List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(),
-            drinker.getBeersRemoved());
+            drinker.getBeersRemoved(), true);
         List<String> croppedAchList = new ArrayList<>();
         for (String achievement : achievements) {
             if (!drinker.getAchievements().contains(achievement)) {
@@ -189,7 +189,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         realm.commitTransaction();
 
         List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(),
-            drinker.getBeersRemoved());
+            drinker.getBeersRemoved(), false);
         List<String> croppedAchList = new ArrayList<>();
         for (String achievement : achievements) {
             if (!drinker.getAchievements().contains(achievement)) {

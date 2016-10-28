@@ -1,5 +1,7 @@
 package com.infusionsoft.beerhub.model;
 
+import java.util.List;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -20,6 +22,17 @@ public class BeerDrinker extends RealmObject {
     private String pin;
 
     private String nickName;
+
+    //TODO actually do
+//    private List<Achievement> achievements;
+//
+//    public List<Achievement> getAchievements() {
+//        return achievements;
+//    }
+//
+//    public void setAchievements(List<Achievement> achievements) {
+//        this.achievements = achievements;
+//    }
 
     public BeerDrinker() {
     }

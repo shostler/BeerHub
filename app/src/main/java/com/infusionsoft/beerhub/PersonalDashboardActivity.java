@@ -6,8 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.infusionsoft.beerhub.model.Achievement;
 import com.infusionsoft.beerhub.model.BeerDrinker;
 import com.infusionsoft.beerhub.model.BeerDrinkerFields;
+
+import java.util.List;
+
 import io.realm.Realm;
 
 public class PersonalDashboardActivity extends AppCompatActivity {
@@ -52,6 +57,10 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         drinker.setBeersRemoved(drinker.getBeersRemoved() + 1);
         realm.commitTransaction();
 
+        List<Achievement> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(), drinker.getBeersRemoved());
+        //TODO check against extisting achievements and notifiy(toast to start) about/add the differences
+        //TODO in a transaction if updating drinker
+
         showInteractionSummary();
     }
 
@@ -60,6 +69,10 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         realm.beginTransaction();
         drinker.setBeersAdded(drinker.getBeersAdded() + numAdded);
         realm.commitTransaction();
+
+        List<Achievement> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(), drinker.getBeersRemoved());
+        //TODO check against extisting achievements and notifiy(toast to start) about/add the differences
+        //TODO in a transaction if updating drinker
 
         showInteractionSummary();
     }

@@ -65,7 +65,7 @@ public class SigninFragment extends Fragment {
             }
         });
 
-        pinLockView.setPinLength(6);
+        pinLockView.setPinLength(5);
 
         return view;
     }

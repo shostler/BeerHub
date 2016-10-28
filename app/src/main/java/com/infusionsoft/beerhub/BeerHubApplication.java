@@ -34,11 +34,11 @@ public class BeerHubApplication extends Application {
 
             final List<BeerDrinker> drinkers = new ArrayList<>();
 
-            drinkers.add(BeerDrinker.create("President Skroob", "123456", 0, 0));
-            drinkers.add(BeerDrinker.create("Dark Helmet", "132549", 10, 2));
-            drinkers.add(BeerDrinker.create("Lone Starr", "903545", 20, 10));
-            drinkers.add(BeerDrinker.create("Princess Vespa", "023855", 0, 60));
-            drinkers.add(BeerDrinker.create("Barf", "985381", 0, 0));
+            drinkers.add(BeerDrinker.create("President Skroob", "12345", 0, 0));
+            drinkers.add(BeerDrinker.create("Dark Helmet", "13254", 10, 2));
+            drinkers.add(BeerDrinker.create("Lone Starr", "90354", 20, 10));
+            drinkers.add(BeerDrinker.create("Princess Vespa", "02385", 0, 60));
+            drinkers.add(BeerDrinker.create("Barf", "98538", 0, 0));
 
             settings.setInitialized(true);
 

@@ -1,10 +1,8 @@
 package com.infusionsoft.beerhub;
 
 import android.databinding.BaseObservable;
-
 import com.infusionsoft.beerhub.model.Achievement;
 import com.infusionsoft.beerhub.model.BeerDrinker;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +16,11 @@ public class BeerDrinkerViewModel extends BaseObservable {
     public void setDrinker(BeerDrinker drinker) {
         this.drinker = drinker;
         notifyChange();
+    }
+
+    public String getNetValue() {
+        String netValue = drinker != null ? String.valueOf(drinker.getNetBeers()) : "0";
+        return netValue;
     }
 
     public String getNickName() {

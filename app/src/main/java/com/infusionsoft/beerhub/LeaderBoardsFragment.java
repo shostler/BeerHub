@@ -30,6 +30,7 @@ public class LeaderBoardsFragment extends Fragment {
 
     private List<BeerDrinker> drinkers;
     private LeaderboardsLayoutBinding binding;
+    private BeerDrinkerAdapter adapter;
 
     @Nullable
     @Override
@@ -41,6 +42,7 @@ public class LeaderBoardsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         binding.recycler.setLayoutManager(layoutManager);
+        binding.recycler.setAdapter(adapter = new BeerDrinkerAdapter());
 
         return binding.getRoot();
     }
@@ -60,8 +62,8 @@ public class LeaderBoardsFragment extends Fragment {
     }
 
     private void filterBy(int index) {
-        String field = index == 0 ? BeerDrinkerFields.BEERS_ADDED : BeerDrinkerFields.BEERS_REMOVED;
-        Sort sort = Sort.DESCENDING;
+        String field = BeerDrinkerFields.NET_BEERS;
+        Sort sort = index == 0 ? Sort.DESCENDING : Sort.ASCENDING;
         final Realm realm = Realm.getDefaultInstance();
         realm.where(BeerDrinker.class)
             .findAllSorted(field, sort)
@@ -76,7 +78,7 @@ public class LeaderBoardsFragment extends Fragment {
                 @Override
                 public void call(List<BeerDrinker> beerDrinkers) {
                     drinkers = beerDrinkers;
-                    binding.recycler.setAdapter(new BeerDrinkerAdapter());
+                    adapter.notifyDataSetChanged();
                 }
             });
     }

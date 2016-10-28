@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="@{viewModel.netValue}"
-                android:textColor="@color/colorGood"
+                android:textColor="@{viewModel.netBeers >= 0 ? @color/colorGood : @color/colorError}"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:text="123"

@@ -18,6 +18,11 @@ public class BeerDrinkerViewModel extends BaseObservable {
         notifyChange();
     }
 
+    public int getNetBeers() {
+        int netBeers = drinker != null ? drinker.getNetBeers() : 0;
+        return netBeers;
+    }
+
     public String getNetValue() {
         String netValue = drinker != null ? String.valueOf(drinker.getNetBeers()) : "0";
         return netValue;

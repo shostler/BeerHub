@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/nick_name"
                 android:layout_marginTop="4dp"
-                android:text="@{viewModel.nickName}"
+                android:text="@{viewModel.achievements}"
                 android:textColor="@color/colorAccent"
                 android:textSize="14sp"
                 tools:text="viewModel.nickName"

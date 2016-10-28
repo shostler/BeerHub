@@ -9,15 +9,15 @@ import java.util.List;
 
 public enum Achievement {
 
-    BRONZE_DONATOR ("bronze donator", "Donated at least 12 beers"),
-    SILVER_DONATOR ("silver donator", "Donated at least 36 beers"),
-    GOLD_DONATOR ("gold donator", "Donated at least 120 beers"),
-    LIGHTWEIGHT ("lightweight", "Drank at least 12 beers"),
-    PROFESSIONAL ("professional", "Drank at least 36 beers"),
-    LIVER_FAILURE ("liver failure", "Drank at least 120 beers"),
-    LEECH("leech", "Reached -12 net beers"),
-    MAJOR_PARASITE("major parasite", "Reached -36 net beers"),
-    FREELOADING_JERK("freeloading jerk", "Reached -120 net beers")
+    BRONZE_DONATOR ("Bronze Donator", "Donated at least 12 beers"),
+    SILVER_DONATOR ("Silver Donator", "Donated at least 36 beers"),
+    GOLD_DONATOR ("Gold Donator", "Donated at least 120 beers"),
+    LIGHTWEIGHT ("Lightweight", "Drank at least 12 beers"),
+    PROFESSIONAL ("Professional", "Drank at least 36 beers"),
+    LIVER_FAILURE ("Liver Failure", "Drank at least 120 beers"),
+    LEECH("Leech", "Reached -12 net beers"),
+    MAJOR_PARASITE("Major Parasite", "Reached -36 net beers"),
+    FREELOADING_JERK("Freeloading Jerk", "Reached -120 net beers")
     ;
 
     private final String name;

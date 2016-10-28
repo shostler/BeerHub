@@ -1,6 +1,7 @@
 package com.infusionsoft.beerhub;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -96,6 +97,18 @@ public class PersonalDashboardActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(finishHandler);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resetFinishHandler(IDLE_TIMER);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_dashboard, menu);
@@ -132,6 +145,21 @@ public class PersonalDashboardActivity extends AppCompatActivity {
 
             dialog.setCancelable(true);
             dialog.setTitle("Your Achievements");
+
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialogInterface) {
+                    handler.removeCallbacks(finishHandler);
+                }
+            });
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    resetFinishHandler(IDLE_TIMER);
+                }
+            });
+
             dialog.show();
             return true;
         }

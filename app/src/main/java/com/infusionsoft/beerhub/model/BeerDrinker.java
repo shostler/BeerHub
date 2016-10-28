@@ -1,5 +1,7 @@
 package com.infusionsoft.beerhub.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.realm.RealmObject;
@@ -23,16 +25,7 @@ public class BeerDrinker extends RealmObject {
 
     private String nickName;
 
-    //TODO actually do
-//    private List<Achievement> achievements;
-//
-//    public List<Achievement> getAchievements() {
-//        return achievements;
-//    }
-//
-//    public void setAchievements(List<Achievement> achievements) {
-//        this.achievements = achievements;
-//    }
+    private String achievements;
 
     public BeerDrinker() {
     }
@@ -93,5 +86,22 @@ public class BeerDrinker extends RealmObject {
     public void setBeersRemoved(int beersRemoved) {
         this.beersRemoved = beersRemoved;
         updateNetBeers();
+    }
+
+    public List<String> getAchievements() {
+        if(achievements == null){
+            return new ArrayList<>();
+        }
+        List<String> achieveList = new ArrayList<>(Arrays.asList(achievements.split(",")));
+        return achieveList;
+    }
+
+    public void setAchievements(List<String> achievements) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : achievements) {
+            sb.append(",").append(s);
+        }
+
+        this.achievements = sb.substring(1); // remove leading separator
     }
 }

@@ -28,48 +28,56 @@ public enum Achievement {
         this.description = description;
     }
 
-    public static List<Achievement> getAchievedAchievements(int totalDonated, int totalDrank){
+    public static List<String> getAchievedAchievements(int totalDonated, int totalDrank){
         int netTotal = totalDonated-totalDrank;
-        List<Achievement> achieved = new ArrayList<>();
+        List<String> achieved = new ArrayList<>();
 
 
         //BRONZE_DONATOR
         if(totalDonated >= 12){
-            achieved.add(BRONZE_DONATOR);
+            achieved.add(BRONZE_DONATOR.name());
         }
         //SILVER_DONATOR
         if(totalDonated >= 36){
-            achieved.add(SILVER_DONATOR);
+            achieved.add(SILVER_DONATOR.name());
         }
         //GOLD_DONATOR
         if(totalDonated >= 120){
-            achieved.add(GOLD_DONATOR);
+            achieved.add(GOLD_DONATOR.name());
         }
         //LIGHTWEIGHT
         if(totalDrank >= 12){
-            achieved.add(LIGHTWEIGHT);
+            achieved.add(LIGHTWEIGHT.name());
         }
         //PROFESSIONAL
         if(totalDrank >= 36){
-            achieved.add(PROFESSIONAL);
+            achieved.add(PROFESSIONAL.name());
         }
         //LIVER_FAILURE
         if(totalDrank >= 120){
-            achieved.add(LIVER_FAILURE);
+            achieved.add(LIVER_FAILURE.name());
         }
         //LEECH
         if(netTotal <= -12){
-            achieved.add(LEECH);
+            achieved.add(LEECH.name());
         }
         //MAJOR_PARASITE
         if(netTotal <= -36){
-            achieved.add(MAJOR_PARASITE);
+            achieved.add(MAJOR_PARASITE.name());
         }
         //FREELOADING_JERK
         if(netTotal <= -120){
-            achieved.add(FREELOADING_JERK);
+            achieved.add(FREELOADING_JERK.name());
         }
 
         return achieved;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

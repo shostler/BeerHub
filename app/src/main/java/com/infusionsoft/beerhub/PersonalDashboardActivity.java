@@ -8,10 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.infusionsoft.beerhub.model.Achievement;
 import com.infusionsoft.beerhub.model.BeerDrinker;
 import com.infusionsoft.beerhub.model.BeerDrinkerFields;
 import io.realm.Realm;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonalDashboardActivity extends AppCompatActivity {
@@ -99,9 +103,20 @@ public class PersonalDashboardActivity extends AppCompatActivity {
             mTakeOneBeer.start();
         }
 
-        List<Achievement> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(), drinker.getBeersRemoved());
-        //TODO check against extisting achievements and notifiy(toast to start) about/add the differences
-        //TODO in a transaction if updating drinker
+        List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(), drinker.getBeersRemoved());
+        List<String> croppedAchList = new ArrayList<>();
+        for(String achievement : achievements){
+            if (!drinker.getAchievements().contains(achievement)){
+                croppedAchList.add(achievement);
+                Toast.makeText(getApplicationContext(), "ACHIEVEMENT EARNED!\n" +  Achievement.valueOf(achievement).getName(), Toast.LENGTH_LONG).show();
+            }
+        }
+
+        realm.beginTransaction();
+        List<String> oldAchievements = drinker.getAchievements();
+        oldAchievements.addAll(croppedAchList);
+        drinker.setAchievements(oldAchievements);
+        realm.commitTransaction();
 
         showInteractionSummary();
     }
@@ -112,9 +127,20 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         drinker.setBeersAdded(drinker.getBeersAdded() + numAdded);
         realm.commitTransaction();
 
-        List<Achievement> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(), drinker.getBeersRemoved());
-        //TODO check against extisting achievements and notifiy(toast to start) about/add the differences
-        //TODO in a transaction if updating drinker
+        List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(), drinker.getBeersRemoved());
+        List<String> croppedAchList = new ArrayList<>();
+        for(String achievement : achievements){
+            if (!drinker.getAchievements().contains(achievement)){
+                croppedAchList.add(achievement);
+                Toast.makeText(getApplicationContext(), "ACHIEVEMENT EARNED!\n" +  Achievement.valueOf(achievement).getName(), Toast.LENGTH_LONG).show();
+            }
+        }
+
+        realm.beginTransaction();
+        List<String> oldAchievements = drinker.getAchievements();
+        oldAchievements.addAll(croppedAchList);
+        drinker.setAchievements(oldAchievements);
+        realm.commitTransaction();
 
         showInteractionSummary();
     }
@@ -146,5 +172,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         TextView beersDrankText = (TextView)findViewById(R.id.textBeersDrank);
         beersDrankText.setText(String.valueOf(drinker.getBeersRemoved()));
     }
+
+
 
 }

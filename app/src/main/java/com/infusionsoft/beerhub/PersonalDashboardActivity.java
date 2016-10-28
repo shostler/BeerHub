@@ -26,13 +26,14 @@ import java.util.List;
 public class PersonalDashboardActivity extends AppCompatActivity {
 
     public static final String PIN_KEY = "key.pin";
-    private static final String NEGATIVE_NET_BEERS = "Beers in the hole!";
-    private static final String POSITIVE_NET_BEERS = "Beers still to drink!";
+
+    private static final long IDLE_TIMER = 30 * 1000; // 30 seconds
+    private static final long KICKBACK_TIMER = 5 * 1000; // 5 seconds
 
     private BeerDrinker drinker;
 
     private Handler handler;
-    private Runnable stopUpdatingHandler;
+    private Runnable finishHandler;
 
     private MediaPlayer mAddOneBeer;
     private MediaPlayer mAddSixBeers;
@@ -70,15 +71,15 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.ic_beer);
 
-
         updateDrinkerSummary();
+        resetFinishHandler(IDLE_TIMER);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        handler.removeCallbacks(stopUpdatingHandler);
-        stopUpdatingHandler = null;
+        handler.removeCallbacks(finishHandler);
+        finishHandler = null;
     }
 
     @Override
@@ -162,6 +163,8 @@ public class PersonalDashboardActivity extends AppCompatActivity {
             mTakeOneBeer.start();
         }
 
+        long delay = KICKBACK_TIMER;
+
         List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(),
             drinker.getBeersRemoved());
         List<String> croppedAchList = new ArrayList<>();
@@ -170,6 +173,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
                 croppedAchList.add(achievement);
                 Toast.makeText(getApplicationContext(), Achievement.valueOf(achievement).getName() + " Achievement Earned!\n" + Achievement.valueOf(achievement).getDescription(), Toast.LENGTH_LONG).show();
                 mAchievementAchieved.start();
+                delay = IDLE_TIMER;
             }
         }
 
@@ -179,7 +183,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         drinker.setAchievements(oldAchievements);
         realm.commitTransaction();
 
-        showInteractionSummary();
+        showInteractionSummary(delay);
     }
 
     public void addBeers(int numAdded) {
@@ -188,6 +192,8 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         drinker.setBeersAdded(drinker.getBeersAdded() + numAdded);
         realm.commitTransaction();
 
+        long delay = KICKBACK_TIMER;
+
         List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(),
             drinker.getBeersRemoved());
         List<String> croppedAchList = new ArrayList<>();
@@ -196,6 +202,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
                 croppedAchList.add(achievement);
                 Toast.makeText(getApplicationContext(), Achievement.valueOf(achievement).getName() + " Achievement Earned!\n" + Achievement.valueOf(achievement).getDescription(), Toast.LENGTH_LONG).show();
                 mAchievementAchieved.start();
+                delay = IDLE_TIMER;
             }
         }
 
@@ -205,21 +212,23 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         drinker.setAchievements(oldAchievements);
         realm.commitTransaction();
 
-        showInteractionSummary();
+        showInteractionSummary(delay);
     }
 
-    public void showInteractionSummary() {
+    public void showInteractionSummary(long delay) {
         updateDrinkerSummary();
-        //TODO earned badges?
+        resetFinishHandler(delay);
+    }
 
-        handler.removeCallbacks(stopUpdatingHandler);
-        stopUpdatingHandler = new Runnable() {
+    private void resetFinishHandler(long delay) {
+        handler.removeCallbacks(finishHandler);
+        finishHandler = new Runnable() {
             @Override
             public void run() {
                 finish();
             }
         };
-        handler.postDelayed(stopUpdatingHandler, 5000);
+        handler.postDelayed(finishHandler, delay);
     }
 
     private void updateDrinkerSummary() {

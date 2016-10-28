@@ -4,25 +4,25 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.infusionsoft.beerhub.model.Achievement;
 import com.infusionsoft.beerhub.model.BeerDrinker;
 import com.infusionsoft.beerhub.model.BeerDrinkerFields;
 import io.realm.Realm;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonalDashboardActivity extends AppCompatActivity {
 
     public static final String PIN_KEY = "key.pin";
-    private static final String NEGATIVE_NET_BEERS  = "Beers in the hole!";
-    private static final String POSITIVE_NET_BEERS  = "Beers still to drink!";
+    private static final String NEGATIVE_NET_BEERS = "Beers in the hole!";
+    private static final String POSITIVE_NET_BEERS = "Beers still to drink!";
 
     private BeerDrinker drinker;
 
@@ -40,6 +40,11 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_dashboard);
 
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitleMarginStart(
+            getResources().getDimensionPixelSize(R.dimen.title_margin_start));
+        setSupportActionBar(toolbar);
+
         this.handler = new Handler(Looper.getMainLooper());
 
         this.mAddOneBeer = MediaPlayer.create(this, R.raw.light_applause);
@@ -55,10 +60,13 @@ public class PersonalDashboardActivity extends AppCompatActivity {
             .equalTo(BeerDrinkerFields.PIN, pin)
             .findFirst();
 
-        setTitle(drinker.getNickName());
+        //toolbar.setTitle(drinker.getNickName());
+        getSupportActionBar().setTitle(drinker.getNickName());
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_beer);
+
 
         updateDrinkerSummary();
-
     }
 
     @Override
@@ -106,12 +114,15 @@ public class PersonalDashboardActivity extends AppCompatActivity {
             mTakeOneBeer.start();
         }
 
-        List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(), drinker.getBeersRemoved());
+        List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(),
+            drinker.getBeersRemoved());
         List<String> croppedAchList = new ArrayList<>();
-        for(String achievement : achievements){
-            if (!drinker.getAchievements().contains(achievement)){
+        for (String achievement : achievements) {
+            if (!drinker.getAchievements().contains(achievement)) {
                 croppedAchList.add(achievement);
-                Toast.makeText(getApplicationContext(), "ACHIEVEMENT EARNED!\n" +  Achievement.valueOf(achievement).getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),
+                    "ACHIEVEMENT EARNED!\n" + Achievement.valueOf(achievement).getName(),
+                    Toast.LENGTH_LONG).show();
                 mAchievementAchieved.start();
             }
         }
@@ -125,18 +136,21 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         showInteractionSummary();
     }
 
-    public void addBeers(int numAdded){
+    public void addBeers(int numAdded) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         drinker.setBeersAdded(drinker.getBeersAdded() + numAdded);
         realm.commitTransaction();
 
-        List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(), drinker.getBeersRemoved());
+        List<String> achievements = Achievement.getAchievedAchievements(drinker.getBeersAdded(),
+            drinker.getBeersRemoved());
         List<String> croppedAchList = new ArrayList<>();
-        for(String achievement : achievements){
-            if (!drinker.getAchievements().contains(achievement)){
+        for (String achievement : achievements) {
+            if (!drinker.getAchievements().contains(achievement)) {
                 croppedAchList.add(achievement);
-                Toast.makeText(getApplicationContext(), "ACHIEVEMENT EARNED!\n" +  Achievement.valueOf(achievement).getName(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),
+                    "ACHIEVEMENT EARNED!\n" + Achievement.valueOf(achievement).getName(),
+                    Toast.LENGTH_LONG).show();
                 mAchievementAchieved.start();
             }
         }
@@ -150,7 +164,7 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         showInteractionSummary();
     }
 
-    public void showInteractionSummary(){
+    public void showInteractionSummary() {
         updateDrinkerSummary();
         //TODO earned badges?
 
@@ -164,12 +178,26 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         handler.postDelayed(stopUpdatingHandler, 5000);
     }
 
-    private void updateDrinkerSummary(){
+    private void updateDrinkerSummary() {
         TextView beerTotalText = (TextView)findViewById(R.id.textBeerNet);
         beerTotalText.setText(String.valueOf(drinker.getNetBeers()));
 
         TextView beerTotalLabel = (TextView)findViewById(R.id.textNetBeersLabel);
-        beerTotalLabel.setText( (drinker.getNetBeers() < 0) ? NEGATIVE_NET_BEERS : POSITIVE_NET_BEERS );
+        int netBeers = drinker.getNetBeers();
+        if (netBeers < 0) {
+            beerTotalText.setTextColor(ContextCompat.getColor(this, R.color.colorError));
+            beerTotalLabel.setTextColor(ContextCompat.getColor(this, R.color.colorError));
+            beerTotalLabel.setText(R.string.beers_in_the_hole);
+        } else {
+            beerTotalText.setTextColor(ContextCompat.getColor(this, R.color.colorGood));
+            beerTotalLabel.setTextColor(ContextCompat.getColor(this, R.color.colorGood));
+            if (netBeers == 0) {
+                beerTotalLabel.setText(R.string.no_beers_to_drink);
+            } else {
+                beerTotalLabel.setText(
+                    getResources().getQuantityString(R.plurals.beers_to_drink, netBeers));
+            }
+        }
 
         TextView beersAddedText = (TextView)findViewById(R.id.textBeersAdded);
         beersAddedText.setText(String.valueOf(drinker.getBeersAdded()));
@@ -177,7 +205,4 @@ public class PersonalDashboardActivity extends AppCompatActivity {
         TextView beersDrankText = (TextView)findViewById(R.id.textBeersDrank);
         beersDrankText.setText(String.valueOf(drinker.getBeersRemoved()));
     }
-
-
-
 }

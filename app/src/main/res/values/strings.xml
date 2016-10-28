@@ -17,4 +17,12 @@
         <item>Top 10 Philanthropists</item>
         <item>Top 10 Leeches</item>
     </string-array>
+
+    <plurals name="beers_to_drink">
+        <item quantity="one">Beer to drink</item>
+        <item quantity="other">Beers still to drink!</item>
+    </plurals>
+
+    <string name="no_beers_to_drink">No beers to drink!</string>
+    <string name="beers_in_the_hole">Beers in the hole!</string>
 </resources>

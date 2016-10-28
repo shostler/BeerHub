@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#712808</color>
     <color name="colorAccent">#F1A705</color>
     <color name="colorText">@color/white</color>
+    <color name="colorError">#A61103</color>
+    <color name="colorGood">#11A603</color>
+    <!--<color name="colorError">#730202</color>-->
 </resources>

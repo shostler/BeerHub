@@ -77,7 +77,7 @@ public class LeaderBoardsFragment extends Fragment {
             .subscribe(new Action1<List<BeerDrinker>>() {
                 @Override
                 public void call(List<BeerDrinker> beerDrinkers) {
-                    drinkers = beerDrinkers;
+                    drinkers = beerDrinkers.size() > 10 ? beerDrinkers.subList(0,10) : beerDrinkers;
                     adapter.notifyDataSetChanged();
                 }
             });
